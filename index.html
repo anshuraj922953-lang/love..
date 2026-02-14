@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mere pyari si baccha ke liye ❤️</title>
+    <style>
+        body {
+            background-color: #ffebee;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .section { display: none; animation: fadeIn 0.5s; }
+        .active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h1 { color: #d81b60; font-size: 24px; }
+        p { color: #555; }
+
+        .btn {
+            padding: 12px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-yes { background: #e91e63; color: white; }
+        .btn-no { background: #90caf9; color: white; position: absolute; }
+        .btn-menu { background: #f06292; color: white; width: 80%; }
+
+        /* Quiz Style */
+        .option {
+            background: #fce4ec;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid #f8bbd0;
+        }
+        .option:hover { background: #f8bbd0; }
+
+        /* Gallery Style */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #fce4ec;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="page1" class="section active">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWpjbWNhNXh3cHJmdzRwN291M3ZxY2xhMG12aTRkOWk1YXlseTY2dCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MDJ9IbxxvDUQM/giphy.gif" width="150">
+            <h1>Kya tum meri Valentine banogi? 💖</h1>
+            <button class="btn btn-yes" onclick="nextPage(2)">YES!</button>
+            <button id="noBtn" class="btn btn-blue" onmouseover="moveNo()">NO</button>
+        </div>
+
+        <div id="page2" class="section">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGw5N3B4N3p0MHNkMWJwMm91M3A5bW9rMHBqYTZoZ2g4cno5NDNpNSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/mnR01wfMUTo9hGXUvl/giphy.gif" width="150">
+            <h1>Yaaaay! I Love You! ❤️</h1>
+            <button class="btn btn-yes" onclick="nextPage(3)">Cheak my gifts 🎁</button>
+        </div>
+
+        <div id="page3" class="section">
+            <h3>Chunno ek Gift ✨</h3>
+            <button class="btn btn-menu" onclick="startQuiz(); nextPage(4)">1. Ek Quiz</button>
+            <button class="btn btn-menu" onclick="nextPage(5)">2. Pyara sa Letter</button>
+            <button class="btn btn-menu" onclick="nextPage(6)">3. your Photos</button>
+        </div>
+
+        <div id="page4" class="section">
+            <h3 id="qTitle">Sawal 1</h3>
+            <p id="qText">Loading...</p>
+            <div id="options"></div>
+            <p id="feedback" style="color:red; font-size: 12px;"></p>
+        </div>
+
+        <div id="page5" class="section">
+            <h3>Mere Dil Ki Baat ❤️</h3>
+            <p style="text-align: left; font-style: italic;">
+                "Tum mere liye bahut special ho. Jab se tum meri life mein aayi ho, sab kuch badal gaya hai. Main hamesha tumhara saath dena chahta hoon..."
+            </p>
+            <button class="btn btn-yes" onclick="nextPage(3)">go back</button>
+        </div>
+
+        <div id="page6" class="section">
+            <h3>Your pics  🥰</h3>
+            <div class="gallery">
+                <img src="photo1.jpg" alt="Photo 1">
+                <img src="photo2.jpg" alt="Photo 2">
+                <img src="photo3.jpg" alt="Photo 3">
+                <img src="photo4.jpg" alt="Photo 4">
+                <img src="photo5.jpg" alt="photo 5">
+                <img src="photo6.jpg" alt="photo 6">
+            </div>
+            <button class="btn btn-yes" onclick="nextPage(3)" style="margin-top: 15px;">go back </button>
+        </div>
+    </div>
+
+    <script>
+        function nextPage(n) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('page' + n).classList.add('active');
+        }
+
+        function moveNo() {
+            const b = document.getElementById('noBtn');
+            b.style.left = Math.random() * 80 + 'vw';
+            b.style.top = Math.random() * 80 + 'vh';
+        }
+
+        // QUIZ DATA
+        let currentQ = 0;
+        const questions = [
+            { q: "Humari pehli baat kab hui thi?", options: ["Yaad nahi", "Bahut pehle", "Ek pyare din ❤️"], ans: 2 },
+            { q: "Mujhe tumhari sabse achi cheez kya lagti hai?", options: ["Gussa", "Smile", "Baatein"], ans: 1 },
+            { q: "Hum sabse zyada kya karte hain?", options: ["Ladayi", "Pyaar", "Dono 😂"], ans: 2 },
+            { q: "Kya main tumhe kabhi chhodunga?", options: ["Kabhi nahi", "Sochna padega", "Nahi"], ans: 0 },
+            { q: "Kya tum mujhse gussa ho?", options: ["Ha thoda", "Nahi", "Bilkul nahi ❤️"], ans: 2 }
+        ];
+
+        function startQuiz() {
+            currentQ = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = questions[currentQ];
+            document.getElementById('qTitle').innerText = "Sawal " + (currentQ + 1);
+            document.getElementById('qText').innerText = q.q;
+            const optDiv = document.getElementById('options');
+            optDiv.innerHTML = '';
+            document.getElementById('feedback').innerText = '';
+
+            q.options.forEach((o, i) => {
+                const d = document.createElement('div');
+                d.className = 'option';
+                d.innerText = o;
+                d.onclick = () => {
+                    if(i === q.ans) {
+                        currentQ++;
+                        if(currentQ < questions.length) { showQuestion(); }
+                        else { 
+                            document.getElementById('feedback').innerText = "good! Tum mujhe jaanti ho! ❤️";
+                            setTimeout(() => nextPage(3), 1500);
+                        }
+                    } else {
+                        document.getElementById('feedback').innerText = "Galat! Fir se try karo 😜";
+                    }
+                };
+                optDiv.appendChild(d);
+            });
+        }
+    </script>
+</body>
+</html>
